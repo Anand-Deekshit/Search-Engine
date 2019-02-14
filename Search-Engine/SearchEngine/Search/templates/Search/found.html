@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Results</title>
+    </head>
+    <body>
+        <p id="desc">
+            Results:
+        </p>
+        {% for i in urls %}
+        <a href={{i}}>{{i}}</a>
+        <br>
+        <br>
+        {% endfor %}
+    </body>
+</html>

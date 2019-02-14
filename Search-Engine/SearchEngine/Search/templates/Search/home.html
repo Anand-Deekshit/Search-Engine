@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">       
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <title>
+            What's what?
+        </title>
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+        
+         <!-- Favicon -->
+         <link href="{% static 'img/brand/favicon.png' %}" rel="icon" type="image/png">
+
+
+        <!-- Icons -->
+        <link href="{% static 'vendor/nucleo/css/nucleo.css' %}" rel="stylesheet">
+        <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+
+        <!-- Theme CSS -->
+        <link type="text/css" href="{% static 'css/argon.min.css' %}" rel="stylesheet">
+        <style>
+            #images{
+                margin-right: 4px;
+                margin-top:30px;
+                
+            }
+            #videos{
+                margin-right: 30px;
+                margin-top:30px;
+                margin-left:4px;
+            }
+            #bck{
+                margin-top:10px;
+                margin-bottom:5px;
+                width:33%;
+                height:25%;
+                border-radius: 15%;
+            }
+            #key{
+                margin-left:10px;
+                margin-top:10px;
+                box-shadow:6px 6px grey;
+                padding: 15px;
+                border-radius: 25px;
+                width: 600px;
+                height: 45px;
+               
+            }
+           
+        </style>
+    </head>
+    <body>
+            <a href="#" class="badge badge-secondary" style="float:right;text-transform: capitalize;font-size:small" id="videos">Videos</a>
+            <a href="#" class="badge badge-secondary" style="float:right;text-transform: capitalize;font-size:small" id="images">Images</a>
+            
+            <br><br><br>
+             <center><img src="{% static 'Images/bck.jpg' %}" id="bck"></center>
+          <div>   
+           <form method="POST" action="{% url 'word' %}">
+                {% csrf_token %}
+
+              <center><input type="text" id="key" name="key" placeholder="What's what?">
+                    <button class="btn btn-icon btn-2 btn-secondary btn-outline-default" type="button">
+                        <span class="btn-inner--icon"><i class="ni ni-curved-next" style="width:5px; border-radius:50%;"></i></span>
+                    </button>
+              </center>
+            </form>
+          </div>
+                   
+
+
+        <!-- Core -->
+        <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'vendor/popper/popper.min.js' %}"></script>
+        <script src="{% static 'vendor/bootstrap/bootstrap.min.js' %}"></script>
+
+        <!-- Theme JS -->
+    </body>
+</html>

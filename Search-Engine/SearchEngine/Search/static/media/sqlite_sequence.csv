@@ -1,0 +1,11 @@
+,name,seq
+0,django_migrations,19
+1,django_admin_log,10
+2,django_content_type,9
+3,auth_permission,36
+4,auth_user,3
+5,auth_group,1
+6,auth_group_permissions,3
+7,Myfirst_app_form,2
+8,Myfirst_app_regform,1
+9,Myfirst_app_userform,4
