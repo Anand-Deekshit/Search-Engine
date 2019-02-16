@@ -158,7 +158,7 @@ class Spider:
         dataObject = BeautifulSoup(htmlString, features="html.parser")
         for link in dataObject.find_all("a"):
             href = str(link.get('href'))
-            if href != "None" and len(href) != 0 and href[0] != '.':
+            if href != "None" and len(href) != 0 and href[0] != '.' and href != 'None/':
                 #print(href, " : ", len(href))
                 if href[0] == '/' and href[len(href) - 1] == '/':
                     urls.append(Spider.SEED + href[:len(href) - 1])
@@ -223,8 +223,11 @@ class Spider:
         htmlData = requests.get(url + "/")
         htmlString = htmlData.text
         data = Spider.remove_special_characters(htmlString)
+        dataList = data.split(" ")
+        dataLength = len(dataList)
         count = data.count(word)
-        return count
+        weight = float(count / dataLength) * 100
+        return float(weight)
     
     
     @staticmethod
@@ -254,11 +257,14 @@ class Spider:
                     description = Spider.check_in_description(word, dataObject)
                     metaKeyword = Spider.check_in_keyword(word, dataObject)
                     category = Spider.get_category(word)
-                    count = Spider.get_count(word, url)
+                    weight = Spider.get_count(word, url)
+                    inUrl = 0
+                    if word in url:
+                        inUrl = 1
                     #cursor.execute("update keywordurlpair set urls =? where keyword=?",(list_of_urlsForWord, word))
                     try:
-                        query = """INSERT INTO keywordurlpair(keyword, urls, title, meta_description, meta_keyword, category, count) VALUES(%s, %s, %s, %s, %s, %s, %s)"""
-                        variable = [str(word), str(url), int(title), int(description), int(metaKeyword), int(category), int(count)]
+                        query = """INSERT INTO keywordurlpair(keyword, urls, title, meta_description, meta_keyword, category, weight, in_url) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"""
+                        variable = [str(word), str(url), int(title), int(description), int(metaKeyword), int(category), float(weight), int(inUrl)]
                         cursor.execute(query, variable)
                         print("DONE")
                         #connection.commit()
@@ -269,10 +275,13 @@ class Spider:
                 description =Spider.check_in_description(word, dataObject)
                 metaKeyword = Spider.check_in_keyword(word, dataObject)
                 category = Spider.get_category(word)
-                count = Spider.get_count(word, url)
+                weight = Spider.get_count(word, url)
+                inUrl = 0
+                if word in url:
+                    inUrl = 1
                 try:
-                    query = """INSERT INTO keywordurlpair(keyword, urls, title, meta_description, meta_keyword, category, count) VALUES(%s, %s, %s, %s, %s, %s, %s)"""
-                    variable = [str(word), str(url), int(title), int(description), int(metaKeyword), int(category), int(count)]
+                    query = """INSERT INTO keywordurlpair(keyword, urls, title, meta_description, meta_keyword, category, weight, in_url) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"""
+                    variable = [str(word), str(url), int(title), int(description), int(metaKeyword), int(category), float(weight), int(inUrl)]
                     cursor.execute(query, variable)
                     print("DONE")
                     #connection.commit()

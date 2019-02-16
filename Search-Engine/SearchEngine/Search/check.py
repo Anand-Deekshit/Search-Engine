@@ -19,6 +19,7 @@ class Check:
         var = Check.word
         cursor.execute(query, (var,))
         urlsData = cursor.fetchall()
+        query = "SELECT urls FROM keywordurlpair WHERE "
         category = Spider.get_category(Check.word)
         query = "SELECT urls FROM keywordurlpair WHERE category=%s"
         var = int(category)
@@ -28,15 +29,10 @@ class Check:
             urlList.append(urlsData[tup][0])
         for tup in range(len(category_urls)):
             if category_urls[tup][0] not in urlList:
-                query = "SELECT count FROM keywordurlpair WHERE urls=%s AND keyword=%s"
-                var1 = category_urls[tup][0]
-                var2 = Check.word
-                cursor.execute(query, (var1, var2))
-                count = cursor.fetchall()
-                if count != ():
-                    if count[0] > 10:
-                        urlList.append(category_urls[tup][0])
+                weight = Spider.get_count(Check.word, category_urls[tup][0])
+                if weight > 0.08:
+                    urlList.append(category_urls[tup][0])
         connection.close()
-        return urlList
+        return list(set(urlList))
 
         
