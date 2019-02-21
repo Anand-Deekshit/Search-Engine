@@ -260,7 +260,7 @@ class Spider:
                     weight = Spider.get_count(word, url)
                     inUrl = 0
                     if word in url:
-                        inUrl = 1
+                        inUrl = 8
                     #cursor.execute("update keywordurlpair set urls =? where keyword=?",(list_of_urlsForWord, word))
                     try:
                         query = """INSERT INTO keywordurlpair(keyword, urls, title, meta_description, meta_keyword, category, weight, in_url) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"""
@@ -269,7 +269,7 @@ class Spider:
                         print("DONE")
                         #connection.commit()
                     except:
-                        pass
+                        pass  
             else:
                 title = Spider.check_in_title(word ,dataObject)
                 description =Spider.check_in_description(word, dataObject)
@@ -278,7 +278,7 @@ class Spider:
                 weight = Spider.get_count(word, url)
                 inUrl = 0
                 if word in url:
-                    inUrl = 1
+                    inUrl = 8
                 try:
                     query = """INSERT INTO keywordurlpair(keyword, urls, title, meta_description, meta_keyword, category, weight, in_url) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"""
                     variable = [str(word), str(url), int(title), int(description), int(metaKeyword), int(category), float(weight), int(inUrl)]
@@ -311,7 +311,7 @@ class Spider:
     #print("WORD : ", word)
         title = dataObject.title.string
         if word in title.lower():
-            return 1
+            return 4
         return 0
     
     @staticmethod
@@ -331,7 +331,7 @@ class Spider:
             if str(meta.get("name")) == "keywords":
                 metaKeyword = meta.get("content")
         if word in metaKeyword.lower():
-            return 1
+            return 2
         return 0
     
     @staticmethod

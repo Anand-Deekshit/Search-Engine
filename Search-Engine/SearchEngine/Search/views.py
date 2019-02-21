@@ -10,7 +10,8 @@ def home(request):
 def input_word(request):
     phrase = request.POST['key'];
     Check(phrase)
-    urls = Check.wordUrls
+    urlsDict = Check.urlsDict
+    urls = Check.sortUrls(urlsDict)
     print("---------------------------------------")
     print(urls)
     if len(urls)>0:
